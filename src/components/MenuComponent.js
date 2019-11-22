@@ -27,18 +27,7 @@ class Menu extends Component {
     });
   }
 
-  renderDish(dish) {
-    if (dish != null) {
-      return (
-        <DishDetail dish={dish} />
-      );
-    } else {
-      return <div></div>
-    }
-  }
-
   render() {
-
     const menu = this.props.dishes.map((dish) => {
       return (
         <div key={dish.id} className="col-12 col-md-5 m-1">
@@ -52,20 +41,15 @@ class Menu extends Component {
       )
     });
 
-    console.log("MenuComponent rendered")
-
     return (
         <div className="container">
           <div className="row">
             {menu}
           </div>
           {this.state.selectedDish !== null &&
-            <div className="row">
-              <DishDetail dish={this.state.selectedDish} />
-            </div>
-          }
-
-        </div>
+            <DishDetail dish={this.state.selectedDish} />
+          } 
+        </div>       
     );
   }
 }
