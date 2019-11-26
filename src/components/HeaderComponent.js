@@ -1,16 +1,69 @@
 import React, { Component }  from 'react';
-import { Navbar, NavbarBrand, Jumbotron } from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import { 
+  Navbar, 
+  NavbarBrand, 
+  Nav,
+  NavbarToggler,
+  Collapse,
+  NavItem,
+  Jumbotron 
+} from 'reactstrap';
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      isNavOpen: false,
+    };
+
+      this.toggleNav = this.toggleNav.bind(this);
+  }
+
+
+  toggleNav() {
+    this.setState({
+      isNavOpen: !this.state.isNavOpen
+    });
+  }
+
   render() {
     return (
       <div>
         <>
-        <Navbar dark>
+        <Navbar dark expand="md">
           <div className="container">
-            <NavbarBrand href="/">Home</NavbarBrand>
+            <NavbarToggler onClick={this.toggleNav} />
+            <NavbarBrand className="mr-auto" href="/">
+              <img src="assets/images/logo.png" height="30" width="41" alt="Ristorante Con Fusion" />
+            </NavbarBrand>
+            <Collapse navbar isOpen={this.state.isNavOpen}>
+            <Nav navbar>
+              <NavItem>
+                <NavLink className="nav-link" to="/home">
+                  <span className="fa fa-home fa-lg"></span> Home
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/about">
+                  <span className="fa fa-info fa-lg"></span> About Us
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/menu">
+                  <span className="fa fa-list fa-lg"></span> Menu
+                </NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink className="nav-link" to="/contact">
+                  <span className="fa fa-envelope fa-lg"></span> Contact Us
+                </NavLink>
+              </NavItem>
+            </Nav>
+            </Collapse>
           </div>
-        </Navbar>
+        </Navbar>     
         <Jumbotron>
            <div className="container">
                <div className="row row-header">
