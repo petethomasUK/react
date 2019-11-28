@@ -3,6 +3,7 @@ import Menu from './MenuComponent';
 import Header from './HeaderComponent';
 import Footer from './FooterComponent';
 import Home from './HomeComponent';
+import About from './AboutComponent';
 import Contact from './ContactComponent';
 import DishDetail from './DishDetailComponent';
 import { DISHES } from '../shared/dishes';
@@ -36,6 +37,12 @@ class Main extends Component {
       );
     }
 
+    const AboutPage = () => {
+      return(
+          <About leaders={this.state.leaders} />
+      );
+    }
+
     const DishWithId = ({ match }) => {
       return(
           <DishDetail 
@@ -49,6 +56,7 @@ class Main extends Component {
         <Header />
         <Switch>
           <Route path="/home" component={HomePage} />
+          <Route path="/about" component={AboutPage} />
           <Route exact path="/menu" component={() => <Menu dishes={this.state.dishes} />} />
           <Route path="/menu/:id" component={DishWithId} />
           <Route exact path="/contact" component={Contact} />} />
