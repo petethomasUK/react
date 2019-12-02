@@ -97,11 +97,10 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     });
   }
 
-  handleSubmit(values) {
+  handleSubmit(values, event) {
     console.log('Current State is: ' + JSON.stringify(values));
     alert('Current State is: ' + JSON.stringify(values));
-}
-
+  }
 
     render() {
       return (
@@ -110,66 +109,62 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader toggle={this.toggleModal}>Login</ModalHeader>
           <ModalBody>
-          <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
-            
-                    <Row className="form-group">
-                    
-                        <Col md={12}>
-                        <Label htmlFor="rating" >Rating</Label>
-                            <Control.select model=".rating" name="rating"
-                                className="form-control">
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                            </Control.select>
-                        </Col>
-                    </Row>
-
-                    <Row className="form-group">
-                                
-                                <Col md={12}>
-                                <Label htmlFor="firstname">First Name</Label>
-                                    <Control.text model=".firstname" id="firstname" name="firstname"
-                                        placeholder="First Name"
-                                        className="form-control"
-                                        validators={{
-                                            required, minLength: minLength(3), maxLength: maxLength(15)
-                                        }}
-                                         />
-                                        
-                                    <Errors
-                                        className="text-danger"
-                                        model=".firstname"
-                                        show="touched"
-                                        wrapper={(props) => RenderErrors(props.children)}
-                                        messages={{
-                                            required: 'Required',
-                                            minLength: 'Must be greater than 2 characters',
-                                            maxLength: 'Must be 15 characters or less'
-                                        }}
-                                     />
-                                    
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                
-                                <Col md={12}>
-                                <Label htmlFor="message">Comment</Label>
-                                    <Control.textarea model=".message" id="message" name="message"
-                                        rows="6"
-                                        className="form-control" />
-                                </Col>
-                            </Row>
-                            <Row className="form-group">
-                                <Col md={12}>
-                                    <Button type="submit" color="primary">
-                                    Submit
-                                    </Button>
-                                </Col>
-                            </Row>
-                        </LocalForm>
+            <LocalForm onSubmit={(values) => this.handleSubmit(values)}>
+              <Row className="form-group">                
+                <Col>
+                  <Label htmlFor="rating">Rating</Label>
+                  <Control.select id="rating" model=".rating" name="rating"
+                    validators={{
+                      required
+                    }}
+                    className="form-control">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                  </Control.select>
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col>
+                  <Label htmlFor="author">Your Name</Label>
+                  <Control.text model=".author" id="author" name="author"
+                    placeholder="Your Name"
+                    className="form-control"
+                    validators={{
+                    required, minLength: minLength(3), maxLength: maxLength(15)
+                  }}
+                  />                                     
+                  <Errors
+                    className="text-danger"
+                    model=".author"
+                    show="touched"
+                    wrapper={(props) => RenderErrors(props.children)}
+                    messages={{
+                    required: 'Required',
+                    minLength: 'Must be greater than 3 characters',
+                    maxLength: 'Must be 15 characters or less'
+                  }} 
+                  />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col>
+                  <Label htmlFor="message">Comment</Label>
+                  <Control.textarea model=".message" id="message" name="message"
+                  rows="6"
+                  className="form-control" />
+                </Col>
+              </Row>
+              <Row className="form-group">
+                <Col>
+                  <Button type="submit" color="primary">
+                  Submit
+                  </Button>
+                </Col>
+              </Row>
+            </LocalForm>
           </ModalBody>
         </Modal>
         </div>
