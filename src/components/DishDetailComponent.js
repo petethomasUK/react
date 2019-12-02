@@ -120,6 +120,9 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 className="form-control">
                                 <option>1</option>
                                 <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
                             </Control.select>
                         </Col>
                     </Row>
@@ -151,15 +154,16 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Label htmlFor="message" md={2}>Comment</Label>
-                                <Col md={10}>
+                                
+                                <Col md={12}>
+                                <Label htmlFor="message">Comment</Label>
                                     <Control.textarea model=".message" id="message" name="message"
                                         rows="6"
                                         className="form-control" />
                                 </Col>
                             </Row>
                             <Row className="form-group">
-                                <Col md={{size:10, offset: 2}}>
+                                <Col md={12}>
                                     <Button type="submit" color="primary">
                                     Submit
                                     </Button>
