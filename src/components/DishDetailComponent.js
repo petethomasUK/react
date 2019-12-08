@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 
-  const RenderComments = ({comments}) => {
+  const RenderComments = ({comments, addComment, dishId}) => {
     const commentsList = comments.map(comment => {
       return (
         <li key={comment.id}>
@@ -22,7 +22,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
           <li>Comments</li>
           {commentsList}
         </ul>
-        <CommentForm />
+        <CommentForm dishId={dishId} addComment={addComment} />
       </div>
     )
   }
@@ -39,7 +39,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     )
   }
 
-  const DishDetail = ({dish, comments}) => {
+  const DishDetail = ({dish, comments, addComment}) => {
     if (!dish)
       return <div></div>;
 
@@ -58,7 +58,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
         </div>
         <div className="row">
           <RenderDish dish={dish} />
-          <RenderComments comments={comments} />
+          <RenderComments comments={comments} addComment={addComment} dishId={dish.id}/>
         </div>
       </div>
     ); 
@@ -100,6 +100,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
   handleSubmit(values, event) {
     console.log('Current State is: ' + JSON.stringify(values));
     alert('Current State is: ' + JSON.stringify(values));
+    this.props.addComment(this.props.dishId, values.rating, values.author, values.message);
   }
 
     render() {
