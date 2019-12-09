@@ -2,6 +2,7 @@ import React, { Component }  from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
+import { Loading } from './LoadingComponent';
 
   const RenderComments = ({comments, addComment, dishId}) => {
     const commentsList = comments.map(comment => {
@@ -39,30 +40,45 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
     )
   }
 
-  const DishDetail = ({dish, comments, addComment}) => {
-    if (!dish)
-      return <div></div>;
-
-    return (
-      <div className="container">
-        <div className="row">
-          <Breadcrumb>
-            <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
-            <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
-            <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
-          </Breadcrumb>
-          <div className="col-12">
-            <h3>{dish.name}</h3>
-            <hr />
+  const DishDetail = ({dish, comments, addComment, isLoading, errorMessage}) => {
+    if (isLoading) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
           </div>
         </div>
-        <div className="row">
-          <RenderDish dish={dish} />
-          <RenderComments comments={comments} addComment={addComment} dishId={dish.id}/>
+      )
+    } else if (errorMessage) {
+      return (
+        <div className="container">
+          <div className="row">
+            <Loading />
+          </div>
         </div>
-      </div>
-    ); 
-  }
+      )
+    } else if (dish !== null) {}
+      return (
+        <div className="container">
+          <div className="row">
+            <Breadcrumb>
+              <BreadcrumbItem><Link to='/home'>Home</Link></BreadcrumbItem>
+              <BreadcrumbItem><Link to='/menu'>Menu</Link></BreadcrumbItem>
+              <BreadcrumbItem active>{dish.name}</BreadcrumbItem>
+            </Breadcrumb>
+            <div className="col-12">
+              <h3>{dish.name}</h3>
+              <hr />
+            </div>
+          </div>
+          <div className="row">
+            <RenderDish dish={dish} />
+            <RenderComments comments={comments} addComment={addComment} dishId={dish.id}/>
+          </div>
+        </div>
+     ); 
+    }
+  
 
   const required = (val) => val && val.length;
   const maxLength = (len) => (val) => !(val) || (val.length <= len);
