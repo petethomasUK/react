@@ -43,7 +43,6 @@ import { Loading } from './LoadingComponent';
       )
     }
 
-  
 
     return (
       <div className="container">
