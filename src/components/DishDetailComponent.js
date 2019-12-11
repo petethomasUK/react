@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Card, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalBody, ModalHeader, Row, Col, Label } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
 
   const RenderComments = ({comments, addComment, dishId}) => {
     const commentsList = comments.map(comment => {
@@ -32,7 +33,7 @@ import { Loading } from './LoadingComponent';
     return (
       <div className="col-12 col-md-5 m-1">
         <Card>
-          <CardImg width="100%" src={dish.image} alt={dish.name} />
+          <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
             <CardTitle>{dish.name}</CardTitle>
             <CardBody>{dish.description}</CardBody>
         </Card>
