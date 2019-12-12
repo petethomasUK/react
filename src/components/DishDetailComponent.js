@@ -5,7 +5,7 @@ import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
 
-  const RenderComments = ({comments, addComment, dishId}) => {
+  const RenderComments = ({comments, postComment, dishId}) => {
     const commentsList = comments.map(comment => {
       return (
         <li key={comment.id}>
@@ -24,7 +24,7 @@ import { baseUrl } from '../shared/baseUrl';
           <li>Comments</li>
           {commentsList}
         </ul>
-        <CommentForm dishId={dishId} addComment={addComment} />
+        <CommentForm dishId={dishId} postComment={postComment} />
       </div>
     )
   }
@@ -41,7 +41,7 @@ import { baseUrl } from '../shared/baseUrl';
     )
   }
 
-  const DishDetail = ({dish, comments, addComment, isLoading, errorMessage}) => {
+  const DishDetail = ({dish, comments, postComment, isLoading, errorMessage}) => {
     if (isLoading) {
       return (
         <div className="container">
@@ -74,7 +74,7 @@ import { baseUrl } from '../shared/baseUrl';
           </div>
           <div className="row">
             <RenderDish dish={dish} />
-            <RenderComments comments={comments} addComment={addComment} dishId={dish.id}/>
+            <RenderComments comments={comments} postComment={postComment} dishId={dish.id}/>
           </div>
         </div>
      ); 
@@ -117,7 +117,7 @@ import { baseUrl } from '../shared/baseUrl';
   handleSubmit(values, event) {
     console.log('Current State is: ' + JSON.stringify(values));
     alert('Current State is: ' + JSON.stringify(values));
-    this.props.addComment(this.props.dishId, values.rating, values.author, values.message);
+    this.props.postComment(this.props.dishId, values.rating, values.author, values.message);
   }
 
     render() {
