@@ -4,19 +4,21 @@ import { Card, CardImg, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button,
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Loading } from './LoadingComponent';
 import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform, Fade, Stagger } from 'react-animation-components';
 
   const RenderComments = ({comments, postComment, dishId}) => {
-    const commentsList = comments.map(comment => {
-      return (
-        <li key={comment.id}>
-          <ul>
-            <li>{comment.comment}</li>
-            <li>{comment.name} {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</li>
-            <li>----</li>
-          </ul>
-        </li>
-      )
-    });
+    const commentsList = <Stagger in>
+    {comments.map((comment) => {
+        return (
+            <Fade in>
+            <li key={comment.id}>
+            <p>{comment.comment}</p>
+            <p>-- {comment.author} , {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
+            </li>
+            </Fade>
+        );
+    })}
+    </Stagger>
 
     return (
       <div className="col-12 col-md-5 m-1">
@@ -32,11 +34,17 @@ import { baseUrl } from '../shared/baseUrl';
   const RenderDish = ({dish}) => {
     return (
       <div className="col-12 col-md-5 m-1">
-        <Card>
-          <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
-            <CardTitle>{dish.name}</CardTitle>
-            <CardBody>{dish.description}</CardBody>
-        </Card>
+          <FadeTransform
+            in
+            transformProps={{
+              exitTransform: 'scale(0.5) translateY(-50%)'
+          }}>
+          <Card>
+            <CardImg width="100%" src={baseUrl + dish.image} alt={dish.name} />
+              <CardTitle>{dish.name}</CardTitle>
+              <CardBody>{dish.description}</CardBody>
+          </Card>
+        </FadeTransform>
       </div>
     )
   }
